@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="random_user_api.client" class="Voodooism\RandomUser\Client">
+            <argument type="service" id="jms_serializer.serializer" />
+            <argument type="service" id="random_user_api.http_client" />
+            <argument type="service" id="random_user_api.client_options" />
+        </service>
+
+        <service id="random_user_api.client_options" class="Voodooism\RandomUser\ClientOptions">
+            <argument>%random_user_api.host%</argument>
+            <argument>%random_user_api.version%</argument>
+            <argument>%random_user_api.connection_timeout%</argument>
+            <argument>%random_user_api.request_timeout%</argument>
+        </service>
+
+        <service id="random_user_api.http_client" class="GuzzleHttp\Client" />
+        <service id="Voodooism\RandomUser\Client" alias="random_user_api.client"/>
+    </services>
+</container>
